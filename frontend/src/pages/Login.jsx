@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import api from "../api/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    
     const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -52,6 +55,8 @@ const Login = () => {
             );
 
             setLoginSuccessfully(true);
+
+            navigate("/home");
 
         } catch (err) {
 
