@@ -39,8 +39,8 @@ const Signup = () => {
 
         try {
             const res = await api.post("/auth/signup", {
-                fullName: form.fullName,
-                mobile: form.mobile,
+                fullname: form.fullName,
+                mobilenumber: form.mobile,
                 password: form.password,
                 location: form.location,
                 gender: form.gender,
@@ -50,6 +50,10 @@ const Signup = () => {
             console.log("Signup success:", res.data);
         } catch (error) {
             console.log("Signup error:", error);
+            console.log("STATUS:", error.response?.status);
+            console.log("DATA:", error.response?.data);
+            console.log("FULL ERROR:", error);
+
         }
     };
 
@@ -116,7 +120,7 @@ const Signup = () => {
                         <p className="mb-2">Gender</p>
 
                         <div className="flex gap-4">
-                            {["male", "female", "other"].map((g) => (
+                            {["Male", "Female", "other"].map((g) => (
                                 <label key={g} className="flex items-center gap-1">
                                     <input
                                         type="radio"

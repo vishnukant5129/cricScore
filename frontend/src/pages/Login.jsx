@@ -7,6 +7,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [loginSuccessfully, setLoginSuccessfully] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const validate = () => {
@@ -31,26 +32,46 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        if (!validate()) return;
+
         setIsLoading(true);
+        setLoginSuccessfully(false);
 
         try {
+
             const res = await api.post("/auth/login", {
-                mobile,
-                password,
+                mobilenumber: mobile,
+                password: password,
             });
 
             console.log("Login Success:", res.data);
 
-            // token save
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
 
-            alert("Login successful!");
+            setLoginSuccessfully(true);
 
         } catch (err) {
-            // console.log(err.response?.data?.message || "Login failed");
-            // alert(err.response?.data?.message || "Login failed");
-            console.log("FULL ERROR:", err);
-            console.log("MESSAGE:", err.response?.data);
+
+            setLoginSuccessfully(false);
+
+            console.log(
+                "STATUS:",
+                err.response?.status
+            );
+
+            console.log(
+                "DATA:",
+                err.response?.data
+            );
+
+            alert(
+                err.response?.data?.message ||
+                "Login failed"
+            );
+
         } finally {
             setIsLoading(false);
         }
@@ -219,6 +240,11 @@ const Login = () => {
                             "Sign In"
                         )}
                     </button>
+                    {loginSuccessfully && (
+                        <p className="mt-3 text-sm text-green-400 text-center">
+                            Login successful!
+                        </p>
+                    )}
 
                 </form>
 

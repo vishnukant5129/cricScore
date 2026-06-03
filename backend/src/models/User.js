@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema(
             trim: true,
         },
 
+        password: {
+            type: String,
+            required: true,
+        },
+
         mobilenumber: {
             type: String,
             required: true,
@@ -32,20 +37,20 @@ const userSchema = new mongoose.Schema(
             required: true,
         },
 
-        profilePhoto: {
-            type: String, // image URL
-            default: "",
-        },
+        // profilePhoto: {
+        //     type: String, // image URL
+        //     default: "",
+        // },
 
-        otp: {
-            type: String,
-            default: null,
-        },
+        // otp: {
+        //     type: String,
+        //     default: null,
+        // },
 
-        otpExpiry: {
-            type: Date,
-            default: null,
-        },
+        // otpExpiry: {
+        //     type: Date,
+        //     default: null,
+        // },
 
         isVerified: {
             type: Boolean,
