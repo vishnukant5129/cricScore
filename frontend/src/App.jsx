@@ -3,9 +3,11 @@ import AppRoutes from "./routes/AppRoutes.jsx";
 
 function App() {
   return (
-    // <AuthProvider>
-      <AppRoutes />
-    // </AuthProvider>
+    <>
+      {/* <AuthProvider> */}
+        <AppRoutes />
+      {/* </AuthProvider> */}
+    </>
   );
 }
 
