@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../api/api.js";
 
+import { useNavigate } from "react-router-dom";
+
 const Profile = () => {
+  const navigate = useNavigate();
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -11,8 +14,7 @@ const Profile = () => {
       try {
         const res = await api.get("/player/profile");
 
-        // FIX: Extract "user" instead of "player" from response data
-        setPlayer(res.data.user); 
+        setPlayer(res.data.user);
       } catch (err) {
         setError("Failed to load player profile");
         console.error(err);
@@ -23,6 +25,24 @@ const Profile = () => {
 
     fetchProfile();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      const res = await api.post(
+        "/auth/logout",
+        { withCredentials: true }
+      );
+
+      alert(res.data.message);
+
+      localStorage.removeItem("user");
+
+      navigate("/");
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (loading) {
     return (
@@ -120,6 +140,9 @@ const Profile = () => {
               />
             </div>
           </div>
+          <button onClick={handleLogout}>
+            Logout
+          </button>
 
         </div>
       </div>
