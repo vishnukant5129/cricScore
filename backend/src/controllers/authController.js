@@ -1,7 +1,7 @@
 ﻿import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
-
+import { uploadToCloudinary } from "../utils/cloudinaryUpload.js";
 
 // Generate OTP
 // const generateOTP = () => {
@@ -22,10 +22,15 @@ export const signup = async (req, res) => {
             password,
             location,
             gender,
-            dob
+            dob,
         } = req.body;
 
-        console.log(req.body);
+        let profilePictureUrl = "";
+
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
+            profilePictureUrl = result.secure_url;
+        }
 
         const missingFields = [];
 
@@ -99,7 +104,7 @@ export const signup = async (req, res) => {
                 location,
                 gender,
                 dob,
-                // profilePhoto,
+                profilePhoto: profilePictureUrl,
                 // otp,
                 // otpExpiry,
                 isVerified: true,
@@ -311,7 +316,7 @@ export const login = async (req, res) => {
             .cookie("token", token, {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
                 maxAge:
                     7 *
                     24 *
@@ -348,7 +353,11 @@ export const logout = async (
 ) => {
 
     res
-        .clearCookie("token")
+        .clearCookie("token", {
+            httpOnly: true, 
+            sameSite: 'lax', 
+            secure: false
+        })
         .status(200)
         .json({
             success: true,

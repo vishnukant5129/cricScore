@@ -37,10 +37,10 @@ const userSchema = new mongoose.Schema(
             required: true,
         },
 
-        // profilePhoto: {
-        //     type: String, // image URL
-        //     default: "",
-        // },
+        profilePhoto: {
+            type: String, // image URL
+            default: "",
+        },
 
         // otp: {
         //     type: String,

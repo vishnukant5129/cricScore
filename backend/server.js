@@ -1,14 +1,11 @@
+import "dotenv/config";
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
-import playerRoutes from './src/routes/player.routes.js'
-
-dotenv.config();
-
+import playerRoutes from "./src/routes/player.routes.js";
 const app = express();
 
 // DB connect
@@ -16,7 +13,7 @@ connectDB();
 
 // 🔥 CORS MUST BE HERE (before routes)
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: true,
     credentials: true
 }));
 
