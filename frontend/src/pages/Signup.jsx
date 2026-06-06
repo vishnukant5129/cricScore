@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import api from "../api/api";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         fullName: "",
         mobile: "",
@@ -46,6 +49,7 @@ const Signup = () => {
                 gender: form.gender,
                 dob: form.dob,
             });
+            navigate('/home');
 
             console.log("Signup success:", res.data);
         } catch (error) {
