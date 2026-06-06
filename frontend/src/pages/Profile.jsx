@@ -27,6 +27,7 @@ const Profile = () => {
         });
 
         setPlayer(res.data.user);
+        // console.log(res.data.user)
       } catch (err) {
         setError("Failed to load player profile");
         console.error(err);
@@ -80,13 +81,23 @@ const Profile = () => {
         <div className="relative px-6 pb-8">
 
           <div className="-mt-16 flex flex-col md:flex-row md:items-end gap-6">
-            <div>
-              <h1 className="text-3xl font-bold text-white">
-                {player.fullname}
+            <div className="flex flex-col items-center md:items-start">
+
+              <img
+                src={
+                  player?.profilePhoto ||
+                  "https://via.placeholder.com/150"
+                }
+                alt={player?.fullname}
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-cyan-500 shadow-lg bg-gray-800"
+              />
+
+              <h1 className="mt-4 text-3xl font-bold text-white text-center md:text-left">
+                {player?.fullname}
               </h1>
 
-              <p className="text-cyan-400 font-medium">
-                {player.playingRole || "Player"}
+              <p className="text-cyan-400 font-medium text-lg">
+                {player?.playingRole || "Player"}
               </p>
             </div>
           </div>

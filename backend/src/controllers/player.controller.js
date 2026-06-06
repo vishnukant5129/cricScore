@@ -28,7 +28,7 @@ export const getProfile = async (req, res) => {
         const id = decoded.id;
 
         const user = await User.findById(id).select(
-            "fullname mobilenumber dob location"
+            "fullname mobilenumber dob location profilePhoto"
         );
 
         res.status(200).json({
