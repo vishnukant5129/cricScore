@@ -5,14 +5,26 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProfile = async () => {
+
+      if (!token) {
+        setError("No token found, please login.");
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await api.get("/player/profile");
+        const res = await api.get("/player/profile", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
 
         setPlayer(res.data.user);
       } catch (err) {
