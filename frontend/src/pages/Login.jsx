@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
 
     const navigate = useNavigate();
-    
+
     const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +45,11 @@ const Login = () => {
             const res = await api.post("/auth/login", {
                 mobilenumber: mobile,
                 password: password,
-            });
+            },
+                {
+                    withCredentials: true,
+                }
+            );
 
             console.log("Login Success:", res.data);
 

@@ -40,10 +40,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await api.post(
-        "/auth/logout",
-        { withCredentials: true }
-      );
+      const res = await api.post("/auth/logout");
 
       alert(res.data.message);
 
