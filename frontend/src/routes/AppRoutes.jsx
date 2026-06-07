@@ -9,6 +9,7 @@ import AddTournament from "../pages/AddTournament.jsx"
 import StartAMatch from "../pages/StartAMatch.jsx"
 import MyPerformance from "../pages/MyPerformance.jsx";
 import Profile from "../pages/Profile.jsx"
+import SelectTeam from "../components/selectTeam/SelectTeam.jsx";
 
 export default function AppRoutes() {
     return (
@@ -26,6 +27,7 @@ export default function AppRoutes() {
                 <Route path="/start-match" element={<StartAMatch />}/>
                 <Route path="/performance" element={<MyPerformance />}/>
                 <Route path="/profile" element={<Profile />}/>
+                <Route path="/selectTeam" element={<SelectTeam/>}/>
             </Route>
 
         </Routes>
