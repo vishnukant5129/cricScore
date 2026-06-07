@@ -149,7 +149,7 @@ const Signup = () => {
                     />
 
                     {/* PROFILE IMAGE */}
-                    {/* <div>
+                    <div>
                         <label className="text-slate-300 text-sm">
                             Profile Image (optional)
                         </label>
@@ -160,7 +160,7 @@ const Signup = () => {
                             onChange={handleImage}
                             className="w-full mt-1 text-slate-400"
                         />
-                    </div> */}
+                    </div>
 
                     {/* BUTTON */}
                     <button
