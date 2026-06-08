@@ -3,7 +3,7 @@ import React from 'react'
 const SelectTeam = () => {
     return (
         <div>
-
+            
         </div>
     )
 }

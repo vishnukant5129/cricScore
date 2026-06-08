@@ -58,7 +58,7 @@ const teamSchema = new mongoose.Schema(
             required: true,
         },
 
-        city: {
+        location: {
             type: String,
             default: "",
         },

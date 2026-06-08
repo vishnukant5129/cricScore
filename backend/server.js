@@ -6,6 +6,7 @@ import cors from "cors";
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import playerRoutes from "./src/routes/player.routes.js";
+import teamRoutes from "./src/routes/team.routes.js"
 const app = express();
 
 // DB connect
@@ -23,6 +24,7 @@ app.use(cookieParser());
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/player", playerRoutes)
+app.use("/api/match", teamRoutes)
 
 const PORT = process.env.PORT || 5000;
 
