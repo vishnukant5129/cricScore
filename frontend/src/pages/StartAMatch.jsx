@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import api from "../api/api.js";
+import { useMatch } from "../context/MatchContext";
 
 const StartAMatch = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [teams, setTeams] = useState([]);
-  const [teamA, setTeamA] = useState("");
-  const [teamB, setTeamB] = useState("");
-  const [step, setStep] = useState("A");
-  const [loading, setLoading] = useState()
+  
+  const [loading, setLoading] = useState(false);
 
+  const {
+    teamA,
+    setTeamA,
+    teamB,
+    setTeamB,
+  } = useMatch();
 
-  const fetchTeams = async () => {
+  const fetchTeams = async (type) => {
     try {
       setLoading(true);
 
       const res = await api.get("/match/teams");
-      console.log(res.data.data)
+
       navigate("/selectTeam", {
         state: {
-          // step,
-          // selectedTeamA: teamA,
-          teams: res.data.data
-        }
+          teams: res.data.data,
+          type,
+        },
       });
     } catch (err) {
       console.log(err);
@@ -36,55 +38,80 @@ const StartAMatch = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-      <div className="bg-gray-800 p-6 rounded-xl w-[400px] shadow-lg">
-
+      <div className="bg-gray-800 p-6 rounded-xl w-[450px] shadow-lg">
         <h1 className="text-xl font-bold mb-6 text-center">
           Start A Match
         </h1>
 
         {/* TEAM A */}
         <div className="mb-4">
-          <div className="flex items-center justify-center">
-            <label className="text-sm text-gray-400">Select Team A</label>
+          <div className="text-center">
+            <label className="text-sm text-gray-400">
+              Select Team A
+            </label>
           </div>
-          <div className="flex items-center justify-center">
-            <button
-              onClick={() => fetchTeams()}   // demo value
-              className="w-20 h-20 mt-2 rounded-full flex items-center justify-center p-3 rounded bg-gray-700 hover:bg-gray-600 transition"
-            >
-              <Plus className="w-5 h-5 text-green-400" />
-            </button>
+
+          <div className="flex justify-center mt-3">
+            {teamA ? (
+              <div className="text-center">
+                <h2 className="font-bold text-lg">
+                  {teamA.name}
+                </h2>
+                <p className="text-gray-400">
+                  {teamA.location}
+                </p>
+              </div>
+            ) : (
+              <button
+                onClick={() => fetchTeams("teamA")}
+                className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-700 hover:bg-gray-600 transition"
+              >
+                <Plus className="w-6 h-6 text-green-400" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* VS */}
-        <div className="text-center text-gray-400 font-bold my-2">
+        <div className="text-center font-bold text-xl my-4">
           VS
         </div>
 
         {/* TEAM B */}
         <div className="mb-4">
-          <div className="flex items-center justify-center">
-            <label className="text-sm text-gray-400">Select Team B</label>
+          <div className="text-center">
+            <label className="text-sm text-gray-400">
+              Select Team B
+            </label>
           </div>
-          <div className="flex items-center justify-center">
-            <button
-              onClick={() => fetchTeams()}   // demo value
-              className="w-20 h-20 mt-2 rounded-full flex items-center justify-center p-3 rounded bg-gray-700 hover:bg-gray-600 transition"
-            >
-              <Plus className="w-5 h-5 text-green-400" />
-            </button>
+
+          <div className="flex justify-center mt-3">
+            {teamB ? (
+              <div className="text-center">
+                <h2 className="font-bold text-lg">
+                  {teamB.name}
+                </h2>
+                <p className="text-gray-400">
+                  {teamB.location}
+                </p>
+              </div>
+            ) : (
+              <button
+                disabled={!teamA}
+                onClick={() => fetchTeams("teamB")}
+                className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-700 hover:bg-gray-600 transition disabled:opacity-50"
+              >
+                <Plus className="w-6 h-6 text-green-400" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* START BUTTON */}
         <button
-          // onClick={handleStartMatch()}
-          className="w-full bg-green-500 hover:bg-green-600 py-2 rounded mt-4"
+          disabled={!teamA || !teamB || loading}
+          className="w-full bg-green-500 hover:bg-green-600 py-2 rounded mt-4 disabled:opacity-50"
         >
           Start Match
         </button>
-
       </div>
     </div>
   );

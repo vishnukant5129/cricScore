@@ -10,26 +10,34 @@ import StartAMatch from "../pages/StartAMatch.jsx"
 import MyPerformance from "../pages/MyPerformance.jsx";
 import Profile from "../pages/Profile.jsx"
 import SelectTeam from "../components/selectTeam/SelectTeam.jsx";
+import { MatchProvider } from "../context/MatchContext";
 
 export default function AppRoutes() {
     return (
         <Routes>
-
-            {/* AUTH ROUTES (without layout) */}
+            {/* Auth */}
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
-            {/* APP ROUTES (with layout) */}
             <Route element={<MainLayout />}>
                 <Route path="/home" element={<Home />} />
-                <Route path="/matches" element={<MyMatches />}/>
-                <Route path="/tournament" element={<AddTournament />}/>
-                <Route path="/start-match" element={<StartAMatch />}/>
-                <Route path="/performance" element={<MyPerformance />}/>
-                <Route path="/profile" element={<Profile />}/>
-                <Route path="/selectTeam" element={<SelectTeam/>}/>
+                <Route path="/matches" element={<MyMatches />} />
+                <Route path="/tournament" element={<AddTournament />} />
+                <Route path="/performance" element={<MyPerformance />} />
+                <Route path="/profile" element={<Profile />} />
             </Route>
 
+            {/* Match Flow */}
+            <Route
+                element={
+                    <MatchProvider>
+                        <MainLayout />
+                    </MatchProvider>
+                }
+            >
+                <Route path="/start-match" element={<StartAMatch />} />
+                <Route path="/selectTeam" element={<SelectTeam />} />
+            </Route>
         </Routes>
     );
 }
