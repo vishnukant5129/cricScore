@@ -1,19 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import api from "../api/api.js";
 
 const StartAMatch = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [teams, setTeams] = useState([]);
   const [teamA, setTeamA] = useState("");
   const [teamB, setTeamB] = useState("");
+  const [step, setStep] = useState("A");
+  const [loading, setLoading] = useState()
 
-  const handleStartMatch = () => {
-    console.log("Match Started:", { teamA, teamB });
+
+  const fetchTeams = async () => {
+    try {
+      setLoading(true);
+
+      const res = await api.get("/match/teams");
+      console.log(res.data.data)
+      navigate("/selectTeam", {
+        state: {
+          // step,
+          // selectedTeamA: teamA,
+          teams: res.data.data
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const selectTeam = () => {
-    navigate('/selectTeam');
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
@@ -30,7 +49,7 @@ const StartAMatch = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
-              onClick={() => selectTeam()}   // demo value
+              onClick={() => fetchTeams()}   // demo value
               className="w-20 h-20 mt-2 rounded-full flex items-center justify-center p-3 rounded bg-gray-700 hover:bg-gray-600 transition"
             >
               <Plus className="w-5 h-5 text-green-400" />
@@ -50,7 +69,7 @@ const StartAMatch = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
-              onClick={() => selectTeam()}   // demo value
+              onClick={() => fetchTeams()}   // demo value
               className="w-20 h-20 mt-2 rounded-full flex items-center justify-center p-3 rounded bg-gray-700 hover:bg-gray-600 transition"
             >
               <Plus className="w-5 h-5 text-green-400" />
@@ -60,7 +79,7 @@ const StartAMatch = () => {
 
         {/* START BUTTON */}
         <button
-          onClick={handleStartMatch}
+          // onClick={handleStartMatch()}
           className="w-full bg-green-500 hover:bg-green-600 py-2 rounded mt-4"
         >
           Start Match

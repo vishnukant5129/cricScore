@@ -24,12 +24,13 @@ const teamSchema = new mongoose.Schema(
         //     default: "",
         // },
 
-        captain: [
+        captain: 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Player",
+                required: true,
             },
-        ],
+        
 
         viceCaptain: [
             {
@@ -49,18 +50,19 @@ const teamSchema = new mongoose.Schema(
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Player",
+                required: true,
             },
         ],
 
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            required: true,
         },
 
         location: {
             type: String,
             default: "",
+            required: true,
         },
 
         matchesPlayed: {
