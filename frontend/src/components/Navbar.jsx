@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo.jsx";
+import Tooltip from "./common/Tooltip.jsx";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -51,58 +52,66 @@ const Navbar = () => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="md:hidden text-2xl"
                 >
-                    {isOpen ? "✕" : "☰"}
+                    <Tooltip
+                        text={isOpen ? "Close Menu" : "Open Menu"}
+                        position="left"
+                    >
+                        {isOpen ? "✕" : "☰"}
+                    </Tooltip>
                 </button>
+
             </div>
 
             {/* Mobile Menu */}
-            {isOpen && (
-                <div className="md:hidden flex flex-col gap-4 px-6 pb-4 border-t border-gray-800 bg-[#0f172a]">
-                    <Link
-                        to="/matches"
-                        onClick={() => setIsOpen(false)}
-                        className="pt-4 hover:text-cyan-400"
-                    >
-                        My Matches
-                    </Link>
+            {
+                isOpen && (
+                    <div className="md:hidden flex flex-col gap-4 px-6 pb-4 border-t border-gray-800 bg-[#0f172a]">
+                        <Link
+                            to="/matches"
+                            onClick={() => setIsOpen(false)}
+                            className="pt-4 hover:text-cyan-400"
+                        >
+                            My Matches
+                        </Link>
 
-                    <Link
-                        to="/tournament"
-                        onClick={() => setIsOpen(false)}
-                        className="hover:text-cyan-400"
-                    >
-                        Add Tournament
-                    </Link>
+                        <Link
+                            to="/tournament"
+                            onClick={() => setIsOpen(false)}
+                            className="hover:text-cyan-400"
+                        >
+                            Add Tournament
+                        </Link>
 
-                    <Link
-                        to="/start-match"
-                        onClick={() => setIsOpen(false)}
-                        className="hover:text-cyan-400"
-                    >
-                        Start Match
-                    </Link>
+                        <Link
+                            to="/start-match"
+                            onClick={() => setIsOpen(false)}
+                            className="hover:text-cyan-400"
+                        >
+                            Start Match
+                        </Link>
 
-                    <Link
-                        to="/performance"
-                        onClick={() => setIsOpen(false)}
-                        className="hover:text-cyan-400"
-                    >
-                        My Performance
-                    </Link>
+                        <Link
+                            to="/performance"
+                            onClick={() => setIsOpen(false)}
+                            className="hover:text-cyan-400"
+                        >
+                            My Performance
+                        </Link>
 
-                    <Link
-                        to="/profile"
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-2 hover:text-cyan-400"
-                    >
-                        <div className="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-black font-bold">
-                            U
-                        </div>
-                        Profile
-                    </Link>
-                </div>
-            )}
-        </nav>
+                        <Link
+                            to="/profile"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center gap-2 hover:text-cyan-400"
+                        >
+                            <div className="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-black font-bold">
+                                U
+                            </div>
+                            Profile
+                        </Link>
+                    </div>
+                )
+            }
+        </nav >
     );
 };
 
