@@ -1,11 +1,9 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import MobileLayout from "../components/mobile/MobileLayout.jsx";
+import DesktopLayout from "../components/desktop/DesktopLayout.jsx";
+import useDevice from "../hooks/useDevice";
 
 export default function MainLayout() {
-    return (
-        <>
-            <Navbar />
-            <Outlet />
-        </>
-    );
+    const { isMobile } = useDevice();
+
+    return isMobile ? <MobileLayout /> : <DesktopLayout />;
 }
