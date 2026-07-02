@@ -4,18 +4,26 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import connectDB from "./src/config/db.js";
+
 import authRoutes from "./src/routes/authRoutes.js";
+import index from "./src/routes/index.routes.js"
+import matchesRoutes from "./src/routes/match-scoring.routes.js"
+import matchRoutes from "./src/routes/match.routes.js"
+import notificationsRoutes from "./src/routes/notification.routes.js"
 import playerRoutes from "./src/routes/player.routes.js";
+import searchRoutes from "./src/routes/search.routes.js"
+import statisticsRoutes from "./src/routes/stats.routes.js"
 import teamRoutes from "./src/routes/team.routes.js"
-import userRoutes from "./src/routes/userRoutes.js";
-import playerRoutes from "./src/routes/player.routes.js";
+import tournamentRoutes from "./src/routes/tournament.routes.js"
+import userRoutes from "./src/routes/user.routes.js";
+
 
 const app = express();
 
-// DB connect
+
 connectDB();
 
-// 🔥 CORS MUST BE HERE (before routes)
+
 app.use(cors({
     origin: true,
     credentials: true
@@ -24,9 +32,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// routes
+
 app.use("/api/auth", authRoutes);
-app.use("/api/users" userRoutes)
+app.use("/api/users", userRoutes)
 app.use("/api/players", playerRoutes)
 app.use("/api/teams", teamRoutes)
 app.use("/api/tournaments", tournamentRoutes)
