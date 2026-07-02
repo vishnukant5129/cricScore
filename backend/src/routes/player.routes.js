@@ -1,9 +1,14 @@
 import express from "express";
-import { getProfile } from "../controllers/player.controller.js";
-import authMiddleware from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
-router.get("/profile", authMiddleware, getProfile);
+router.post("/");
+router.get("/");
+router.get(":/id")
+router.put(":/id")
+router.delete(":/id")
+router.get(":/id/stats")
+router.get(":/id/matches")
+router.get(":/id/teams")
 
 export default router;
