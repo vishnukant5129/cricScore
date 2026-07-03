@@ -42,19 +42,14 @@ const userSchema = new mongoose.Schema(
             default: "",
         },
 
-        // otp: {
-        //     type: String,
-        //     default: null,
-        // },
-
-        // otpExpiry: {
-        //     type: Date,
-        //     default: null,
-        // },
 
         isVerified: {
             type: Boolean,
             default: false,
+        },
+        refreshToken: {
+            type: String,
+            default: "",
         },
     },
     {

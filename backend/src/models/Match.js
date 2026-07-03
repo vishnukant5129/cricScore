@@ -4,14 +4,15 @@ const matchSchema = new mongoose.Schema(
     {
         matchNumber: {
             type: String,
+            trim: true,
             default: "",
         },
 
-        // tournament: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "Tournament",
-        //     default: null,
-        // },
+        tournament: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Tournament",
+            default: null,
+        },
 
         teamA: {
             type: mongoose.Schema.Types.ObjectId,
@@ -78,16 +79,16 @@ const matchSchema = new mongoose.Schema(
             required: true,
         },
 
-        // ballsPerOver: {
-        //     type: Number,
-        //     default: 6,
-        // },
+        ballsPerOver: {
+            type: Number,
+            default: 6,
+        },
 
-        // matchType: {
-        //     type: String,
-        //     enum: ["T5", "T10", "T20", "ODI", "Test", "Custom"],
-        //     default: "T20",
-        // },
+        matchType: {
+            type: String,
+            enum: ["Friendly", "Tournament", "Practice"],
+            default: "Friendly",
+        },
 
         ballType: {
             type: String,
@@ -101,34 +102,60 @@ const matchSchema = new mongoose.Schema(
             default: "Turf",
         },
 
+        ground: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Ground",
+            default: null,
+        },
+
         venue: {
             type: String,
+            trim: true,
             default: "",
         },
 
         city: {
             type: String,
+            trim: true,
             default: "",
         },
 
-        startTime: Date,
-
-        endTime: Date,
-
-        tossWinner: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Team",
+        matchDate: {
+            type: Date,
+            required: true,
         },
 
-        tossDecision: {
-            type: String,
-            enum: ["Bat", "Bowl"],
+        startTime: {
+            type: Date,
+        },
+
+        endTime: {
+            type: Date,
+        },
+
+        toss: {
+            winner: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Team",
+            },
+
+            decision: {
+                type: String,
+                enum: ["Bat", "Bowl"],
+            },
         },
 
         currentInnings: {
             type: Number,
             default: 1,
         },
+
+        innings: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Innings",
+            },
+        ],
 
         status: {
             type: String,
@@ -139,7 +166,7 @@ const matchSchema = new mongoose.Schema(
                 "Innings Break",
                 "Completed",
                 "Abandoned",
-                "Cancelled"
+                "Cancelled",
             ],
             default: "Upcoming",
         },
@@ -187,8 +214,16 @@ const matchSchema = new mongoose.Schema(
 
         highlights: [
             {
-                title: String,
-                description: String,
+                title: {
+                    type: String,
+                    trim: true,
+                },
+
+                description: {
+                    type: String,
+                    trim: true,
+                },
+
                 createdAt: {
                     type: Date,
                     default: Date.now,
