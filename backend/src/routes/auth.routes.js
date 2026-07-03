@@ -8,7 +8,7 @@ import {
     resetPassword,
     verifyEmail,
     getProfile
-} from '../controllers/authController.js';
+} from '../controllers/auth.Controller.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
 
