@@ -1,44 +1,24 @@
-import User from "../models/User.js";
-import jwt from "jsonwebtoken";
+export const createPlayer = async (req, res) => {
 
-export const getProfile = async (req, res) => {
-    try {
-        const authHeader = req.headers['authorization'];
-        // console.log(authHeader)
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            return res.status(401).json({
-                success: false,
-                message: "No token found, authorization denied"
-            });
-        }
+}
+export const getPlayers = async (req, res) => {
 
-        const token = authHeader.split(" ")[1];
+}
+export const getPlayerById = async (req, res) => {
 
-        let decoded;
+}
+export const updatePlayer = async (req, res) => {
 
-        try {
-            decoded = jwt.verify(token, process.env.JWT_SECRET); 
-        } catch (err) {
-            return res.status(403).json({
-                success: false,
-                message: "Invalid or Expired Token"
-            });
-        }
+}
+export const deletePlayer = async (req, res) => {
 
-        const id = decoded.id;
+}
+export const getPlayerStats = async (req, res) => {
 
-        const user = await User.findById(id).select(
-            "fullname mobilenumber dob location profilePhoto"
-        );
+}
+export const getPlayerMatches = async (req, res) => {
 
-        res.status(200).json({
-            success: true,
-            user,
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-    }
-};
+}
+export const getPlayerTeams = async (req, res) => {
+
+}
