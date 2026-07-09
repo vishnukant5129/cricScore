@@ -5,7 +5,7 @@ import cors from "cors";
 
 import connectDB from "./src/config/db.js";
 
-import authRoutes from "./src/routes/authRoutes.js";
+import authRoutes from "./src/routes/auth.routes.js";
 import index from "./src/routes/index.routes.js"
 import matchesRoutes from "./src/routes/match-scoring.routes.js"
 import matchRoutes from "./src/routes/match.routes.js"
