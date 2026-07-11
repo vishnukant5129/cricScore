@@ -6,7 +6,7 @@ import cors from "cors";
 import connectDB from "./src/config/db.js";
 
 import authRoutes from "./src/routes/auth.routes.js";
-import index from "./src/routes/index.routes.js"
+// import index from "./src/routes/index.routes.js"
 import matchesRoutes from "./src/routes/match-scoring.routes.js"
 import matchRoutes from "./src/routes/match.routes.js"
 import notificationsRoutes from "./src/routes/notification.routes.js"
@@ -44,6 +44,9 @@ app.use("/api/stats", statisticsRoutes)
 app.use("/api/search", searchRoutes)
 app.use("/api/notifications", notificationsRoutes)
 
+app.get('/', (req, res) => {
+    res.json({ message: 'Scalable backend connected 🚀' });
+});
 
 const PORT = process.env.PORT || 5000;
 

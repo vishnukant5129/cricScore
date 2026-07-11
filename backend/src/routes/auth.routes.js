@@ -7,7 +7,6 @@ import {
     forgotPassword,
     resetPassword,
     verifyEmail,
-    getProfile
 } from '../controllers/auth.Controller.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
@@ -21,6 +20,5 @@ router.post('/refresh-token', refreshToken);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 router.post('/verify-email', verifyEmail);
-router.get('/profile', authMiddleware, getProfile);
 
 export default router;
